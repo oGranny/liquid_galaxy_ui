@@ -37,23 +37,24 @@ class TasksTab extends StatelessWidget {
             text: 'Diwali Nightlight',
             icon: Icons.filter_drama_outlined,
             onPressed: () async {
-              String content =
-                  await rootBundle.loadString('assets/kmls/nightlight.kml');
-              ByteData coastLineData =
-                  await rootBundle.load('assets/kmls/Coastlines_15m.png');
-              Uint8List coastLine = coastLineData.buffer.asUint8List();
-              ByteData viirsData = await rootBundle.load(
-                  'assets/kmls/VIIRS_SNPP_DayNightBand_At_Sensor_Radiance.png');
-              Uint8List viirs = viirsData.buffer.asUint8List();
+              String content_dim =
+                  await rootBundle.loadString('assets/kmls/dim.kml');
+              String content_mid =
+                  await rootBundle.loadString('assets/kmls/mid.kml');
+              String content_bright =
+                  await rootBundle.loadString('assets/kmls/bright.kml');
               await lgService.sendFile(
-                  '/var/www/html/nightlight.kml', utf8.encode(content));
+                  '/var/www/html/nightlight_dim.kml', utf8.encode(content_dim));
               await lgService.sendFile(
-                  '/var/www/html/Coastlines_15m.png', coastLine);
-              await lgService.sendFile(
-                  '/var/www/html/VIIRS_SNPP_DayNightBand_At_Sensor_Radiance.png',
-                  viirs);
+                  '/var/www/html/nightlight_mid.kml', utf8.encode(content_mid));
+              await lgService.sendFile('/var/www/html/nightlight_bright.kml',
+                  utf8.encode(content_bright));
               await lgService.execCommand(
-                  'echo "http://lg1:81/nightlight.kml" > /var/www/html/kmls.txt');
+                  'echo "http://lg1:81/nightlight_dim.kml" > /var/www/html/kmls.txt');
+              await lgService.execCommand(
+                  'echo "http://lg1:81/nightlight_mid.kml" >> /var/www/html/kmls.txt');
+              await lgService.execCommand(
+                  'echo "http://lg1:81/nightlight_bright.kml" >> /var/www/html/kmls.txt');
               await lgService.execCommand(
                   'echo "flytoview=$nightlightOffset" > /tmp/query.txt');
             },

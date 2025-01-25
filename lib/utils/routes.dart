@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lg_ui_task/pages/gemini.dart';
 import 'package:lg_ui_task/pages/gemini_logo.dart';
 import 'package:lg_ui_task/pages/google_voice.dart';
 import 'package:lg_ui_task/pages/animated_navbar.dart';
@@ -10,5 +11,5 @@ final routes = <String, WidgetBuilder>{
   '/navbar': (context) => const AnimatedBottomNavbar(),
   '/voice': (context) => const AnimatedBarPage(),
   '/tabbar': (context) => const AnimatedTabbar(),
-  '/gemini': (context) => const GeminiLogo(),
+  '/gemini': (context) => const Gemini(),
 };
